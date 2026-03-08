@@ -16,6 +16,7 @@ import EditPackage from './dashboards/admin/EditPackage'
 import ManageTestimonials from './dashboards/admin/ManageTestimonials'
 import AddTestimonial from './dashboards/admin/AddTestimonial'
 import EditTestimonial from './dashboards/admin/EditTestimonial'
+import ManageInquiries from './dashboards/admin/ManageInquiries'
 import UserDashboard from './dashboards/user/UserDashboard'
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
             <Route path="/admin/testimonials" element={<ManageTestimonials />} />
             <Route path="/admin/testimonials/add" element={<AddTestimonial />} />
             <Route path="/admin/testimonials/edit/:id" element={<EditTestimonial />} />
+            <Route path="/admin/inquiries" element={<ManageInquiries />} />
           </Routes>
         </main>
         <Footer />

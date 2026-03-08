@@ -1,11 +1,28 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import PackageGrid from '../components/PackageGrid'
-import packages from '../data/packages.json'
+import { getPackages } from '../services/api'
 import { motion } from 'framer-motion'
-import { Users, ShieldCheck, Heart, Map } from 'lucide-react'
+import { Users, ShieldCheck, Heart, Map, Loader2 } from 'lucide-react'
 
 const GroupTours = () => {
-    const groupPackages = packages.filter(pkg => pkg.title.toLowerCase().includes('group'))
+    const [packages, setPackages] = useState([])
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        const fetchPackages = async () => {
+            try {
+                const data = await getPackages()
+                setPackages(data)
+            } catch (err) {
+                console.error('Error fetching group tours:', err)
+            } finally {
+                setLoading(false)
+            }
+        }
+        fetchPackages()
+    }, [])
+
+    const groupPackages = packages.filter(pkg => (pkg.title || '').toLowerCase().includes('group'))
 
     return (
         <div className="flex flex-col w-full bg-white">
@@ -39,7 +56,12 @@ const GroupTours = () => {
             {/* Packages Grid */}
             <section className="section-padding flex-grow">
                 <div className="container">
-                    {groupPackages.length > 0 ? (
+                    {loading ? (
+                        <div className="flex flex-col items-center justify-center py-40 gap-4 opacity-40">
+                            <Loader2 size={48} className="animate-spin text-[#e30613]" />
+                            <p className="font-bold text-gray-800">Finding group adventures...</p>
+                        </div>
+                    ) : groupPackages.length > 0 ? (
                         <PackageGrid
                             items={groupPackages}
                             subtitle="Curated Social Travel"

@@ -1,15 +1,34 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PackageCard from '../components/PackageCard'
-import packages from '../data/packages.json'
-import { Search, Filter } from 'lucide-react'
+import { getPackages } from '../services/api'
+import { Search, Filter, Loader2 } from 'lucide-react'
 
 const TourPackages = () => {
     const [searchTerm, setSearchTerm] = useState('')
     const [filter, setFilter] = useState('All')
+    const [packages, setPackages] = useState([])
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState(null)
+
+    useEffect(() => {
+        const fetchPackages = async () => {
+            try {
+                setLoading(true)
+                const data = await getPackages()
+                setPackages(data)
+            } catch (err) {
+                console.error('Error fetching packages:', err)
+                setError('Failed to load packages. Please try again later.')
+            } finally {
+                setLoading(false)
+            }
+        }
+        fetchPackages()
+    }, [])
 
     const filteredPackages = packages.filter(pkg => {
-        const matchesSearch = pkg.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            pkg.destination.toLowerCase().includes(searchTerm.toLowerCase())
+        const matchesSearch = (pkg.title || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+            (pkg.destination || '').toLowerCase().includes(searchTerm.toLowerCase())
         const matchesFilter = filter === 'All' || pkg.status === filter || (filter === 'International' && pkg.destination !== 'India')
         return matchesSearch && matchesFilter
     })
@@ -61,7 +80,16 @@ const TourPackages = () => {
             {/* Grid */}
             <div className="py-16 flex-grow">
                 <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 40px' }}>
-                    {filteredPackages.length > 0 ? (
+                    {loading ? (
+                        <div className="flex flex-col items-center justify-center py-40 gap-4 opacity-40">
+                            <Loader2 size={48} className="animate-spin text-[#e30613]" />
+                            <p className="font-bold text-gray-800">Loading amazing tours...</p>
+                        </div>
+                    ) : error ? (
+                        <div className="flex flex-col items-center justify-center py-40 gap-4 opacity-40">
+                            <h3 className="text-2xl font-black text-red-600 tracking-tight">{error}</h3>
+                        </div>
+                    ) : filteredPackages.length > 0 ? (
                         <>
                             <p className="text-sm text-gray-500 font-semibold mb-8">{filteredPackages.length} Packages Found</p>
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">

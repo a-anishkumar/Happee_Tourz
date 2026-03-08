@@ -1,14 +1,47 @@
-import React, { useState } from 'react'
-import { Send, CheckCircle2, Phone, Mail, MapPin } from 'lucide-react'
+import React, { useState, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
+import { Send, CheckCircle2, Phone, Mail, MapPin, Loader2, AlertCircle } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { submitInquiry } from '../services/api'
 
 const Contact = () => {
+    const location = useLocation()
     const [submitted, setSubmitted] = useState(false)
+    const [submitting, setSubmitting] = useState(false)
+    const [serverError, setServerError] = useState('')
+    const [form, setForm] = useState({
+        full_name: '', phone: '', email: '', num_persons: '',
+        package: '', travel_month: '', message: ''
+    })
 
-    const handleSubmit = (e) => {
+    useEffect(() => {
+        const params = new URLSearchParams(location.search)
+        const pkg = params.get('package')
+        if (pkg) {
+            setForm(prev => ({ ...prev, package: pkg.toLowerCase().replace(/ /g, '-') }))
+        }
+    }, [location.search])
+
+    const handleChange = (e) => {
+        setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
+    }
+
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        setSubmitted(true)
-        setTimeout(() => setSubmitted(false), 5000)
+        setSubmitting(true)
+        setServerError('')
+        try {
+            await submitInquiry(form)
+            setSubmitted(true)
+            setTimeout(() => {
+                setSubmitted(false)
+                setForm({ full_name: '', phone: '', email: '', num_persons: '', package: '', travel_month: '', message: '' })
+            }, 5000)
+        } catch (err) {
+            setServerError(err.response?.data?.message || 'Something went wrong. Please try again.')
+        } finally {
+            setSubmitting(false)
+        }
     }
 
     const months = [
@@ -116,6 +149,13 @@ const Contact = () => {
                                     onSubmit={handleSubmit}
                                     className="flex flex-col gap-6"
                                 >
+                                    {/* Server-side error banner */}
+                                    {serverError && (
+                                        <div className="flex items-center gap-3 bg-red-50 border border-red-100 text-red-600 px-4 py-3 rounded-xl text-sm font-semibold">
+                                            <AlertCircle size={18} />
+                                            {serverError}
+                                        </div>
+                                    )}
                                     {/* Row 1: Name + Phone */}
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                         <div className="flex flex-col gap-2">
@@ -123,8 +163,11 @@ const Contact = () => {
                                                 Full Name <span className="text-[#e30613]">*</span>
                                             </label>
                                             <input
+                                                name="full_name"
                                                 type="text"
                                                 required
+                                                value={form.full_name}
+                                                onChange={handleChange}
                                                 placeholder="Enter your full name"
                                                 className="bg-gray-50 border border-gray-200 p-4 rounded-xl text-sm font-medium text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#e30613]/25 focus:border-[#e30613] transition-all"
                                             />
@@ -134,8 +177,11 @@ const Contact = () => {
                                                 Phone Number <span className="text-[#e30613]">*</span>
                                             </label>
                                             <input
+                                                name="phone"
                                                 type="tel"
                                                 required
+                                                value={form.phone}
+                                                onChange={handleChange}
                                                 placeholder="e.g. +91 9876543210"
                                                 className="bg-gray-50 border border-gray-200 p-4 rounded-xl text-sm font-medium text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#e30613]/25 focus:border-[#e30613] transition-all"
                                             />
@@ -149,8 +195,11 @@ const Contact = () => {
                                                 Email Address <span className="text-[#e30613]">*</span>
                                             </label>
                                             <input
+                                                name="email"
                                                 type="email"
                                                 required
+                                                value={form.email}
+                                                onChange={handleChange}
                                                 placeholder="your@email.com"
                                                 className="bg-gray-50 border border-gray-200 p-4 rounded-xl text-sm font-medium text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#e30613]/25 focus:border-[#e30613] transition-all"
                                             />
@@ -160,9 +209,12 @@ const Contact = () => {
                                                 Number of Persons <span className="text-[#e30613]">*</span>
                                             </label>
                                             <input
+                                                name="num_persons"
                                                 type="number"
                                                 required
                                                 min="1"
+                                                value={form.num_persons}
+                                                onChange={handleChange}
                                                 placeholder="e.g. 4"
                                                 className="bg-gray-50 border border-gray-200 p-4 rounded-xl text-sm font-medium text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#e30613]/25 focus:border-[#e30613] transition-all"
                                             />
@@ -176,7 +228,10 @@ const Contact = () => {
                                                 Travel Package <span className="text-[#e30613]">*</span>
                                             </label>
                                             <select
+                                                name="package"
                                                 required
+                                                value={form.package}
+                                                onChange={handleChange}
                                                 className="bg-gray-50 border border-gray-200 p-4 rounded-xl text-sm font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#e30613]/25 focus:border-[#e30613] cursor-pointer transition-all"
                                             >
                                                 <option value="">Select a Package</option>
@@ -193,7 +248,10 @@ const Contact = () => {
                                                 Month of Travel <span className="text-[#e30613]">*</span>
                                             </label>
                                             <select
+                                                name="travel_month"
                                                 required
+                                                value={form.travel_month}
+                                                onChange={handleChange}
                                                 className="bg-gray-50 border border-gray-200 p-4 rounded-xl text-sm font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#e30613]/25 focus:border-[#e30613] cursor-pointer transition-all"
                                             >
                                                 <option value="">Select Month</option>
@@ -210,7 +268,10 @@ const Contact = () => {
                                             Message / Special Requirements
                                         </label>
                                         <textarea
+                                            name="message"
                                             rows="5"
+                                            value={form.message}
+                                            onChange={handleChange}
                                             placeholder="Tell us about your travel plans, destination preferences, or any special requirements..."
                                             className="bg-gray-50 border border-gray-200 p-4 rounded-xl text-sm font-medium text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#e30613]/25 focus:border-[#e30613] transition-all resize-none"
                                         ></textarea>
@@ -233,10 +294,11 @@ const Contact = () => {
                                     <div className="pt-2">
                                         <button
                                             type="submit"
-                                            className="w-full bg-[#e30613] text-white py-5 rounded-xl font-bold text-base flex items-center justify-center gap-3 hover:bg-[#c40510] active:scale-[0.99] transition-all shadow-lg shadow-red-600/20"
+                                            disabled={submitting}
+                                            className="w-full bg-[#e30613] text-white py-5 rounded-xl font-bold text-base flex items-center justify-center gap-3 hover:bg-[#c40510] active:scale-[0.99] transition-all shadow-lg shadow-red-600/20 disabled:opacity-60"
                                         >
-                                            Submit Enquiry
-                                            <Send size={18} />
+                                            {submitting ? 'Submitting...' : 'Submit Enquiry'}
+                                            {submitting ? <Loader2 className="animate-spin" size={18} /> : <Send size={18} />}
                                         </button>
                                     </div>
                                 </motion.form>

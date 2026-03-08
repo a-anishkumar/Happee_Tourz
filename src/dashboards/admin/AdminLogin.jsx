@@ -1,22 +1,31 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Lock, Mail, Eye, EyeOff, ShieldCheck } from 'lucide-react'
+import { Lock, Mail, Eye, EyeOff, ShieldCheck, AlertCircle } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { adminLogin } from '../../services/api'
 
 const AdminLogin = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [showPassword, setShowPassword] = useState(false)
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState('')
     const navigate = useNavigate()
 
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault()
-        // Mock login
-        if (email === 'admin@royal.com' && password === 'admin123') {
-            localStorage.setItem('isAdmin', 'true')
+        setError('')
+        setLoading(true)
+
+        try {
+            // Calls the real backend → Supabase → returns JWT token
+            await adminLogin(email, password)
             navigate('/admin/dashboard')
-        } else {
-            alert('Invalid credentials')
+        } catch (err) {
+            const msg = err.response?.data?.message || 'Invalid credentials. Please try again.'
+            setError(msg)
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -36,6 +45,13 @@ const AdminLogin = () => {
                     </div>
 
                     <form onSubmit={handleLogin} className="p-12 flex flex-col gap-8">
+                        {error && (
+                            <div className="flex items-center gap-3 bg-red-50 border border-red-100 text-red-600 px-4 py-3 rounded-xl text-sm font-semibold">
+                                <AlertCircle size={18} />
+                                {error}
+                            </div>
+                        )}
+
                         <div className="flex flex-col gap-2 group">
                             <label className="text-[10px] font-black uppercase text-gray-500 tracking-widest group-focus-within:text-[#e30613] transition-colors">Email Address</label>
                             <div className="relative">
@@ -44,7 +60,7 @@ const AdminLogin = () => {
                                     type="email"
                                     required
                                     className="w-full bg-gray-50 border border-gray-100 p-4 pl-12 rounded-xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#e30613]/20 focus:bg-white transition-all"
-                                    placeholder="admin@royal.com"
+                                    placeholder="admin@happeetourz.com"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                 />
@@ -75,9 +91,10 @@ const AdminLogin = () => {
 
                         <button
                             type="submit"
-                            className="bg-[#e30613] text-white py-4 rounded-xl font-black text-lg shadow-xl shadow-red-600/20 hover:bg-[#c40510] hover:scale-[1.02] active:scale-95 transition-all"
+                            disabled={loading}
+                            className="bg-[#e30613] text-white py-4 rounded-xl font-black text-lg shadow-xl shadow-red-600/20 hover:bg-[#c40510] hover:scale-[1.02] active:scale-95 transition-all disabled:opacity-60 disabled:cursor-not-allowed"
                         >
-                            Enter Dashboard
+                            {loading ? 'Authenticating...' : 'Enter Dashboard'}
                         </button>
                     </form>
                 </div>

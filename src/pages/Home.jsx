@@ -1,12 +1,29 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import HeroSection from '../components/HeroSection'
 import PackageGrid from '../components/PackageGrid'
 import TravelStories from '../components/TravelStories'
 import { motion } from 'framer-motion'
 import { Compass, ShieldCheck, Map, Users, Award, Heart } from 'lucide-react'
-import packages from '../data/packages.json'
+import { getPackages } from '../services/api'
 
 const Home = () => {
+    const [packages, setPackages] = useState([])
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        const fetchPackages = async () => {
+            try {
+                const data = await getPackages()
+                setPackages(data)
+            } catch (err) {
+                console.error('Error fetching packages:', err)
+            } finally {
+                setLoading(false)
+            }
+        }
+        fetchPackages()
+    }, [])
+
     const featuredPackages = packages.slice(0, 3)
 
     const stats = [
