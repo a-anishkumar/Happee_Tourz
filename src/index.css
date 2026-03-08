@@ -1,0 +1,183 @@
+@import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
+
+/* ─── Design Tokens ─── */
+:root {
+  --primary-red: #e30613;
+  --primary-red-hover: #c40510;
+  --bg-white: #ffffff;
+  --bg-light-gray: #f8f9fa;
+  --footer-dark: #1e2229;
+  --text-dark: #1f2937;
+  --text-gray: #4b5563;
+  --text-light: #9ca3af;
+  --border-color: #e5e7eb;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --max-width: 1200px;
+}
+
+/*
+  NOTE: Do NOT add a "* { padding: 0; margin: 0 }" reset here.
+  Tailwind's built-in preflight (included via @import "tailwindcss") already
+  handles the browser reset. Adding a manual * reset OVERRIDES Tailwind's
+  utility classes (p-4, m-6, etc.) because unlayered CSS has higher priority
+  than @layer utilities. Always use @layer base for custom base styles.
+*/
+
+@layer base {
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--text-dark);
+    background-color: var(--bg-white);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+    transition: var(--transition);
+  }
+
+  ul {
+    list-style: none;
+  }
+
+  button {
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-family: inherit;
+    transition: var(--transition);
+  }
+
+  img {
+    max-width: 100%;
+    display: block;
+  }
+}
+
+/* ─── Layout ─── */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+}
+
+.section-padding {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+/* ─── Card Box ─── */
+.card-box {
+  padding: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .card-box {
+    padding: 2.5rem;
+  }
+}
+
+/* ─── Button ─── */
+.btn-red {
+  background-color: var(--primary-red);
+  color: white;
+  padding: 0.85rem 2rem;
+  border-radius: 6px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: var(--transition);
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.btn-red:hover {
+  background-color: var(--primary-red-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(227, 6, 19, 0.22);
+}
+
+.text-red {
+  color: var(--primary-red);
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-light-gray);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* ─── Animations ─── */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.7s ease forwards;
+}

@@ -1,0 +1,50 @@
+[
+    {
+        "id": 1,
+        "name": "Devi A",
+        "date": "2 days ago",
+        "review": "I recently visited Tower Place Antarctica with Grand Royal Tour. We are from First Choi... We had an amazing experience with the team. Highly recommended!",
+        "image": "https://i.pravatar.cc/150?u=devi",
+        "rating": 5
+    },
+    {
+        "id": 2,
+        "name": "kumar durai",
+        "date": "5 days ago",
+        "review": "Wonderful organizations for Thailand trip by our guide Mr. Syed bhai, well planned and well coordinated. Every moment was a joy. Thank you Grand Royal!",
+        "image": "https://i.pravatar.cc/150?u=kumar",
+        "rating": 5
+    },
+    {
+        "id": 3,
+        "name": "Vasantakumari Babu",
+        "date": "1 day ago",
+        "review": "We had been to Thailand recently through Grand Royal Tours. We had visited Pattaya and Bangkok. The hotels were premium and the food was delicious.",
+        "image": "https://i.pravatar.cc/150?u=vasanta",
+        "rating": 5
+    },
+    {
+        "id": 4,
+        "name": "Palaniappan Mani",
+        "date": "3 days ago",
+        "review": "Very well organized and executed trips. Good team and good coordination. Really enjoyed our Dubai tour. The desert safari was the highlight!",
+        "image": "https://i.pravatar.cc/150?u=palani",
+        "rating": 5
+    },
+    {
+        "id": 5,
+        "name": "Anitha Raj",
+        "date": "1 week ago",
+        "review": "Our Europe trip was a dream come true. Everything from visas to sightseeing was perfectly handled by the Grand Royal team. Excellent service.",
+        "image": "https://i.pravatar.cc/150?u=anitha",
+        "rating": 5
+    },
+    {
+        "id": 6,
+        "name": "Suresh Kumar",
+        "date": "2 weeks ago",
+        "review": "Professional tour operator. We took the Bali group package and it was worth every penny. The group was fun and the guide was very knowledgeable.",
+        "image": "https://i.pravatar.cc/150?u=suresh",
+        "rating": 5
+    }
+]

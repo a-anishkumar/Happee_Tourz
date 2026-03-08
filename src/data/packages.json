@@ -1,0 +1,58 @@
+[
+    {
+        "id": 1,
+        "title": "Japan Group Tour Ex BLR",
+        "destination": "Japan",
+        "cities": "Tokyo, Kyoto, Osaka, Nara, Hakone",
+        "duration": "7 Days / 6 Nights",
+        "image": "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        "status": "Active",
+        "hotDeal": true
+    },
+    {
+        "id": 2,
+        "title": "Malaysia And Singapore Tour With Cruise",
+        "destination": "Malaysia & Singapore",
+        "cities": "Kuala Lumpur, Genting, Singapore, Cruise",
+        "duration": "7 Days / 6 Nights",
+        "image": "https://images.unsplash.com/photo-1525625239114-987448227038?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        "status": "Active"
+    },
+    {
+        "id": 3,
+        "title": "Bali Group Tour Ex CBE",
+        "destination": "Bali",
+        "cities": "Ubud, Kuta, Seminyak, Canggu",
+        "duration": "6 Days / 5 Nights",
+        "image": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        "status": "Coming Soon"
+    },
+    {
+        "id": 4,
+        "title": "Rajasthan Group Tour Ex BLR",
+        "destination": "Rajasthan, India",
+        "cities": "Jaipur, Jodhpur, Udaipur, Jaisalmer",
+        "duration": "8 Days / 7 Nights",
+        "image": "https://images.unsplash.com/photo-1599661046289-e31897846e41?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        "status": "Active",
+        "hotDeal": true
+    },
+    {
+        "id": 5,
+        "title": "Egypt Group Tour Ex CBE",
+        "destination": "Egypt",
+        "cities": "Cairo, Luxor, Aswan, Nile Cruise",
+        "duration": "9 Days / 8 Nights",
+        "image": "https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        "status": "Active"
+    },
+    {
+        "id": 6,
+        "title": "Vietnam And Cambodia Heritage Group Tour",
+        "destination": "Vietnam & Cambodia",
+        "cities": "Hanoi, Ha Long Bay, Ho Chi Minh, Siem Reap",
+        "duration": "10 Days / 9 Nights",
+        "image": "https://images.unsplash.com/photo-1528127269322-539801943592?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        "status": "Coming Soon"
+    }
+]
