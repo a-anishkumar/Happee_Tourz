@@ -81,7 +81,7 @@ const Home = () => {
                         <DestinationCard
                             title="International Tours"
                             count="Multiple Packages"
-                            image="https://images.unsplash.com/photo-1518391846015-55a9cc003b25?w=800&q=80"
+                            image="https://images.unsplash.com/photo-1527666466760-f6a7a2b31176?w=800&q=80"
                             href="/tour-packages"
                         />
                         <DestinationCard
@@ -93,7 +93,7 @@ const Home = () => {
                         <DestinationCard
                             title="Group & Honeymoon"
                             count="Tailored Plans"
-                            image="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=800&q=80"
+                            image="https://images.unsplash.com/photo-1534447677768-be436bb09401?w=800&q=80"
                             href="/group-tour-packages"
                         />
                     </div>
