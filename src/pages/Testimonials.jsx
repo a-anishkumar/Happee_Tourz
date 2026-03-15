@@ -225,14 +225,14 @@ const Testimonials = () => {
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                        <StoryPhoto title="South America" image="https://images.unsplash.com/photo-1518391846015-55a9cc003b25?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" />
-                        <StoryPhoto title="Japan" image="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" />
-                        <StoryPhoto title="Malaysia And Singapore" image="https://images.unsplash.com/photo-1525625239114-987448227038?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" />
-                        <StoryPhoto title="Great Britain" image="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" />
-                        <StoryPhoto title="Switzerland" image="https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" />
-                        <StoryPhoto title="Dubai, UAE" image="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" />
-                        <StoryPhoto title="Bali, Indonesia" image="https://images.unsplash.com/photo-1537996194471-e657df975ab4?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" />
-                        <StoryPhoto title="Cairo, Egypt" image="https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" />
+                        <StoryPhoto title="South America" image="https://images.unsplash.com/photo-1518391846015-55a9cc003b25?w=600&q=80" />
+                        <StoryPhoto title="Japan" image="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=600&q=80" />
+                        <StoryPhoto title="Malaysia And Singapore" image="https://images.unsplash.com/photo-1525625239114-987448227038?w=600&q=80" />
+                        <StoryPhoto title="Great Britain" image="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=600&q=80" />
+                        <StoryPhoto title="Switzerland" image="https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?w=600&q=80" />
+                        <StoryPhoto title="Dubai, UAE" image="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&q=80" />
+                        <StoryPhoto title="Bali, Indonesia" image="https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=600&q=80" />
+                        <StoryPhoto title="Cairo, Egypt" image="https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?w=600&q=80" />
                     </div>
                 </div>
             </section>
