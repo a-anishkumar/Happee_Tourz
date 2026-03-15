@@ -4,9 +4,9 @@ import { motion } from 'framer-motion'
 
 const TravelStories = () => {
     const stories = [
-        { id: 1, title: 'Thailand 60 Pax Corporate Tour', thumbnail: 'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', date: '3 months ago' },
-        { id: 2, title: 'Sri Lanka Customer Review', thumbnail: 'https://images.unsplash.com/photo-1529921879218-f996677a9b73?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', date: '5 days ago' },
-        { id: 3, title: 'Bhutan Group Tour Review', thumbnail: 'https://images.unsplash.com/photo-1582234372722-50d7ccc30ebd?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', date: '1 month ago' },
+        { id: 1, title: 'Thailand 60 Pax Corporate Tour', thumbnail: 'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=600&q=80', date: '3 months ago', link: '' },
+        { id: 2, title: 'Sri Lanka Customer Review', thumbnail: 'https://images.unsplash.com/photo-1588598198321-9735fd89eda1?w=600&q=80', date: '5 days ago', link: '' },
+        { id: 3, title: 'Bhutan Group Tour Review', thumbnail: 'https://images.unsplash.com/photo-1582234372722-50d7ccc30ebd?w=600&q=80', date: '1 month ago', link: '' },
     ]
 
     return (
@@ -36,12 +36,14 @@ const TravelStories = () => {
                         <motion.div
                             key={story.id}
                             whileHover={{ y: -5 }}
-                            className="relative rounded-2xl overflow-hidden group shadow-lg aspect-video"
+                            onClick={() => story.link && window.open(story.link, '_blank')}
+                            className={`relative rounded-2xl overflow-hidden group shadow-lg aspect-video bg-gradient-to-br from-gray-800 to-gray-900 ${story.link ? 'cursor-pointer' : 'cursor-default'}`}
                         >
                             <img
                                 src={story.thumbnail}
                                 alt={story.title}
                                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                onError={(e) => { e.target.style.display = 'none' }}
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6">
                                 <h4 className="text-white font-bold mb-1 group-hover:text-[#e30613] transition-colors line-clamp-1">{story.title}</h4>
@@ -56,6 +58,7 @@ const TravelStories = () => {
                             </div>
                         </motion.div>
                     ))}
+
                 </div>
             </div>
         </section>
