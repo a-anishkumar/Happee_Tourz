@@ -1,12 +1,35 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import HeroSection from '../components/HeroSection'
 import PackageGrid from '../components/PackageGrid'
 import TravelStories from '../components/TravelStories'
-import { motion } from 'framer-motion'
-import { Compass, ShieldCheck, Map, Users, Award, Heart } from 'lucide-react'
+import { motion, useInView, useMotionValue, useSpring, animate } from 'framer-motion'
+import { Compass, ShieldCheck, Map, Users, Award, Heart, ArrowRight } from 'lucide-react'
 import { getPackages } from '../services/api'
+import { useNavigate } from 'react-router-dom'
+
+const AnimatedCounter = ({ to, suffix = '' }) => {
+    const ref = useRef(null)
+    const isInView = useInView(ref, { once: true })
+    const [display, setDisplay] = useState('0')
+
+    useEffect(() => {
+        if (!isInView) return
+        const num = parseInt(to.replace(/\D/g, ''), 10)
+        let start = 0
+        const step = Math.ceil(num / 50)
+        const timer = setInterval(() => {
+            start += step
+            if (start >= num) { setDisplay(to); clearInterval(timer) }
+            else setDisplay(start + (to.includes('+') ? '+' : to.includes('%') ? '%' : ''))
+        }, 30)
+        return () => clearInterval(timer)
+    }, [isInView, to])
+
+    return <span ref={ref}>{display}</span>
+}
 
 const Home = () => {
+    const navigate = useNavigate()
     const [packages, setPackages] = useState([])
     const [loading, setLoading] = useState(true)
 
@@ -59,16 +82,19 @@ const Home = () => {
                             title="International Tours"
                             count="Multiple Packages"
                             image="https://images.unsplash.com/photo-1518391846015-55a9cc003b25?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            href="/tour-packages"
                         />
                         <DestinationCard
                             title="Domestic India Tours"
                             count="All Seasons"
                             image="https://images.unsplash.com/photo-1524492707947-526154394042?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            href="/tour-packages"
                         />
                         <DestinationCard
                             title="Group & Honeymoon"
                             count="Tailored Plans"
                             image="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            href="/group-tour-packages"
                         />
                     </div>
                 </div>
@@ -113,13 +139,22 @@ const Home = () => {
                             <div className="grid grid-cols-2 gap-6 py-5 border-y border-gray-200">
                                 {stats.map(stat => (
                                     <div key={stat.id} className="flex flex-col">
-                                        <span className="text-3xl font-black text-[#e30613]">{stat.value}</span>
+                                        <span className="text-3xl font-black text-[#e30613]">
+                                            <AnimatedCounter to={stat.value} />
+                                        </span>
                                         <span className="text-[10px] font-black uppercase text-gray-400 tracking-widest leading-tight mt-1">{stat.label}</span>
                                     </div>
                                 ))}
                             </div>
 
-                            <button className="btn-red w-fit">Explore Our Packages</button>
+                            <motion.button
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                onClick={() => navigate('/tour-packages')}
+                                className="btn-red w-fit flex items-center gap-2"
+                            >
+                                Explore Our Packages <ArrowRight size={18} />
+                            </motion.button>
                         </div>
                     </div>
                 </div>
@@ -178,9 +213,14 @@ const Home = () => {
                             <p className="text-white/80 text-base md:text-lg font-medium max-w-xl">
                                 Whether it's a family holiday, honeymoon, or group adventure — we're here to make it perfect.
                             </p>
-                            <button className="bg-white text-[#e30613] px-10 py-4 rounded-full font-black text-base hover:bg-gray-100 transition-colors shadow-2xl shadow-black/20">
-                                Get Free Consultation
-                            </button>
+                            <motion.button
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                onClick={() => navigate('/contact')}
+                                className="bg-white text-[#e30613] px-10 py-4 rounded-full font-black text-base hover:bg-gray-100 transition-colors shadow-2xl shadow-black/20 flex items-center gap-2"
+                            >
+                                Get Free Consultation <ArrowRight size={18} />
+                            </motion.button>
                         </motion.div>
                     </div>
                 </div>
@@ -189,24 +229,33 @@ const Home = () => {
     )
 }
 
-const DestinationCard = ({ title, count, image }) => (
-    <motion.div
-        whileHover={{ y: -8 }}
-        className="relative rounded-2xl overflow-hidden group h-[300px] shadow-xl bg-[#1e2229]"
-    >
-        <img
-            src={image}
-            alt={title}
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-70"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent p-8 flex flex-col justify-end">
-            <span className="text-[#e30613] font-black text-[10px] uppercase tracking-[0.3em] mb-2">{count}</span>
-            <h3 className="text-2xl font-black text-white leading-tight">{title}</h3>
-            <div className="mt-4 text-white/80 text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity translate-y-3 group-hover:translate-y-0 duration-300">
-                View Packages →
+const DestinationCard = ({ title, count, image, href }) => {
+    const navigate = useNavigate()
+    return (
+        <motion.div
+            whileHover={{ y: -8 }}
+            onClick={() => navigate(href)}
+            className="relative rounded-2xl overflow-hidden group h-[300px] shadow-xl bg-[#1e2229] cursor-pointer"
+        >
+            <img
+                src={image}
+                alt={title}
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-70"
+                onError={(e) => { e.target.style.display = 'none' }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent p-8 flex flex-col justify-end">
+                <span className="text-[#e30613] font-black text-[10px] uppercase tracking-[0.3em] mb-2">{count}</span>
+                <h3 className="text-2xl font-black text-white leading-tight">{title}</h3>
+                <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    whileHover={{ opacity: 1, y: 0 }}
+                    className="mt-4 text-white/80 text-sm font-bold flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300"
+                >
+                    View Packages <ArrowRight size={14} />
+                </motion.div>
             </div>
-        </div>
-    </motion.div>
-)
+        </motion.div>
+    )
+}
 
 export default Home

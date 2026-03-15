@@ -12,12 +12,17 @@ const PackageCard = ({ item }) => {
             className="bg-white border border-gray-100 rounded-lg overflow-hidden group shadow-sm hover:shadow-xl transition-all duration-500"
         >
             {/* Image Section */}
-            <div className="relative overflow-hidden aspect-[4/3]">
-                <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
+            <div className="relative overflow-hidden aspect-[4/3] bg-gradient-to-br from-gray-800 to-gray-900">
+                {item.image ? (
+                    <img
+                        src={item.image}
+                        alt={item.title}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        onError={(e) => {
+                            e.target.style.display = 'none'
+                        }}
+                    />
+                ) : null}
                 <div className="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition-colors pointer-events-none" />
 
                 {/* Badges */}

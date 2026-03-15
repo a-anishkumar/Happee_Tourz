@@ -3,8 +3,10 @@ import PackageGrid from '../components/PackageGrid'
 import { getPackages } from '../services/api'
 import { motion } from 'framer-motion'
 import { Users, ShieldCheck, Heart, Map, Loader2 } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 
 const GroupTours = () => {
+    const navigate = useNavigate()
     const [packages, setPackages] = useState([])
     const [loading, setLoading] = useState(true)
 
@@ -28,10 +30,17 @@ const GroupTours = () => {
         <div className="flex flex-col w-full bg-white">
             {/* Banner */}
             <div
-                className="relative h-[480px] flex items-center justify-center bg-cover bg-center overflow-hidden"
-                style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1521791136064-7986c2959210?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80")' }}
+                className="relative h-[480px] flex items-center justify-center overflow-hidden"
+                style={{
+                    background: 'linear-gradient(135deg, #1e2229 0%, #2d3748 50%, #1e2229 100%)'
+                }}
             >
-                <div className="absolute inset-0 bg-black/50" />
+                {/* Background image */}
+                <div
+                    className="absolute inset-0 bg-cover bg-center opacity-40"
+                    style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1539635278303-d4002c07dee3?w=1920&q=80")' }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/80" />
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -88,7 +97,14 @@ const GroupTours = () => {
                                 Group tours offer the perfect balance of planned efficiency and spontaneous fun. By joining a group, you not only save significant costs through collective bargaining but also enjoy the security of traveling with a community.
                             </p>
                         </div>
-                        <button className="btn-red w-fit px-12 py-4">Inquire For Group Discounts</button>
+                        <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={() => navigate('/contact')}
+                            className="btn-red w-fit px-12 py-4"
+                        >
+                            Inquire For Group Discounts
+                        </motion.button>
                     </div>
                     <div className="relative">
                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-[#e30613]/20 rounded-full blur-3xl animate-pulse" />

@@ -37,11 +37,20 @@ const TourPackages = () => {
 
     return (
         <div className="flex flex-col w-full bg-white min-h-screen">
-            {/* Search & Filter Header */}
-            <section className="bg-[#1e2229] py-16">
-                <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 40px' }}
-                    className="flex flex-col items-center gap-10">
+            {/* Hero Banner */}
+            <section
+                className="relative overflow-hidden"
+                style={{ background: 'linear-gradient(135deg, #1e2229 0%, #2d3748 50%, #1e2229 100%)' }}
+            >
+                <div
+                    className="absolute inset-0 bg-cover bg-center opacity-30"
+                    style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1920&q=80")' }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/70" />
+                <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '80px 40px' }}
+                    className="relative z-10 flex flex-col items-center gap-10">
                     <div className="text-center flex flex-col gap-4">
+                        <span className="text-[#e30613] font-black text-xs uppercase tracking-[0.4em] px-4 py-2 bg-white/10 backdrop-blur-md rounded-full shadow-2xl border border-white/20 inline-block mx-auto">Our Packages</span>
                         <h1 className="text-white text-4xl md:text-5xl font-black">All Tour Packages</h1>
                         <p className="text-gray-400 font-medium max-w-xl mx-auto">
                             Explore our wide range of meticulously planned tours designed to create sweet memories for a lifetime.

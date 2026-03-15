@@ -57,10 +57,16 @@ const Testimonials = () => {
         <div className="flex flex-col w-full bg-white">
             {/* Banner */}
             <div
-                className="relative h-[400px] flex items-center justify-center bg-cover bg-center"
-                style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1544621110-3882f0c18400?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80")' }}
+                className="relative h-[400px] flex items-center justify-center overflow-hidden"
+                style={{
+                    background: 'linear-gradient(135deg, #1e2229 0%, #2d3748 50%, #1e2229 100%)'
+                }}
             >
-                <div className="absolute inset-0 bg-black/60" />
+                <div
+                    className="absolute inset-0 bg-cover bg-center opacity-40"
+                    style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=80")' }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/80" />
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}

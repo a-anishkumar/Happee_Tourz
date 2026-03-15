@@ -58,9 +58,10 @@ const AdminDashboard = () => {
             {/* Sidebar */}
             <aside className="w-80 bg-[#1e2229] flex flex-col p-8 gap-10">
                 <div className="flex flex-col">
-                    <span className="text-2xl font-bold text-white leading-none">GRAND ROYAL TOURS</span>
+                    <span className="text-2xl font-bold text-white leading-none">Happee Tourz</span>
                     <span className="text-[10px] text-[#e30613] font-medium tracking-[0.2em] mt-1 uppercase">Admin Control Panel</span>
                 </div>
+
 
                 <nav className="flex flex-col gap-4">
                     <SidebarLink to="/admin/dashboard" icon={<LayoutDashboard size={20} />} label="Overview" active />
