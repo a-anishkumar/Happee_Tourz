@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Users, Trash2, Calendar, Mail, Phone, MessageSquare, Loader2, Search, ArrowLeft } from 'lucide-react'
+import { LayoutDashboard, Package, MessageSquare, Trash2, Loader2, Users, Settings, LogOut, Search, Calendar, Mail, Phone } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { getInquiries, deleteInquiry } from '../../services/api'
 
@@ -48,17 +48,28 @@ const ManageInquiries = () => {
     )
 
     return (
-        <div className="flex h-screen bg-transparent overflow-hidden">
-            {/* Minimal Sidebar for context */}
-            <aside className="w-20 lg:w-80 bg-[#1e2229] flex flex-col p-6 gap-8">
-                <div className="hidden lg:flex flex-col mb-4">
-                    <span className="text-xl font-bold text-white leading-none">GRAND ROYAL</span>
-                    <span className="text-[8px] text-[#e30613] font-black tracking-widest uppercase">Admin Panel</span>
+        <div className="flex h-screen bg-gray-50 overflow-hidden">
+            <aside className="w-80 bg-[#1e2229] flex flex-col p-8 gap-10">
+                <div className="flex flex-col">
+                    <span className="text-2xl font-bold text-white leading-none">Happee Tourz</span>
+                    <span className="text-[10px] text-[#e30613] font-medium tracking-[0.2em] mt-1 uppercase">Admin Control Panel</span>
                 </div>
-                <Link to="/admin/dashboard" className="flex items-center gap-4 p-4 rounded-xl font-bold text-sm tracking-widest text-gray-500 hover:text-white transition-all">
-                    <ArrowLeft size={20} />
-                    <span className="hidden lg:inline">Back to Dashboard</span>
-                </Link>
+
+                <nav className="flex flex-col gap-4">
+                    <SidebarLink to="/admin/dashboard" icon={<LayoutDashboard size={20} />} label="Overview" />
+                    <SidebarLink to="/admin/packages" icon={<Package size={20} />} label="Manage Packages" />
+                    <SidebarLink to="/admin/testimonials" icon={<MessageSquare size={20} />} label="Manage Testimonials" />
+                    <SidebarLink to="/admin/inquiries" icon={<Users size={20} />} label="User Inquiries" active />
+                    <SidebarLink to="/admin/settings" icon={<Settings size={20} />} label="Site Settings" />
+                </nav>
+
+                <button
+                    onClick={() => { localStorage.removeItem('adminToken'); navigate('/admin/login') }}
+                    className="mt-auto flex items-center gap-3 text-gray-500 hover:text-[#e30613] font-bold text-sm tracking-widest uppercase transition-all"
+                >
+                    <LogOut size={20} />
+                    Logout Securely
+                </button>
             </aside>
 
             <main className="flex-grow flex flex-col p-8 lg:p-12 overflow-y-auto bg-gray-50">
@@ -154,5 +165,18 @@ const ManageInquiries = () => {
         </div>
     )
 }
+
+const SidebarLink = ({ to, icon, label, active }) => (
+    <Link
+        to={to}
+        className={`flex items-center gap-4 p-4 rounded-xl font-bold text-sm tracking-widest transition-all ${active
+            ? 'bg-[#e30613] text-white shadow-xl shadow-red-600/20'
+            : 'text-gray-500 hover:text-white hover:bg-white/5'
+            }`}
+    >
+        {icon}
+        {label}
+    </Link>
+)
 
 export default ManageInquiries

@@ -77,3 +77,49 @@ export const me = (req, res) => {
     // req.user is attached by the auth middleware
     res.json({ success: true, admin: req.user })
 }
+/**
+ * POST /api/auth/change-password
+ * Protected — verifies old password and updates to new password.
+ */
+export const changePassword = async (req, res) => {
+    try {
+        const { currentPassword, newPassword } = req.body
+        const adminId = req.user.id
+
+        // Fetch current admin to get password hash
+        const { data: admin, error } = await supabase
+            .from('admin_users')
+            .select('*')
+            .eq('id', adminId)
+            .single()
+
+        if (error || !admin) {
+            return res.status(404).json({ success: false, message: 'Admin not found' })
+        }
+
+        // Verify old password
+        const isMatch = await bcrypt.compare(currentPassword, admin.password_hash)
+        if (!isMatch) {
+            return res.status(401).json({ success: false, message: 'Current password is incorrect' })
+        }
+
+        // Hash new password
+        const salt = await bcrypt.genSalt(12)
+        const password_hash = await bcrypt.hash(newPassword, salt)
+
+        // Update in Supabase
+        const { error: updateError } = await supabase
+            .from('admin_users')
+            .update({ password_hash })
+            .eq('id', adminId)
+
+        if (updateError) {
+            throw updateError
+        }
+
+        res.json({ success: true, message: 'Password updated successfully' })
+    } catch (err) {
+        console.error('Change password error:', err)
+        res.status(500).json({ success: false, message: 'Failed to update password' })
+    }
+}

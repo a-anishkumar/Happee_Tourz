@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { LayoutDashboard, Package, MessageSquare, PlusCircle, Pencil, Trash2, Loader2, Users } from 'lucide-react'
+import { LayoutDashboard, Package, MessageSquare, PlusCircle, Pencil, Trash2, Loader2, Users, Settings } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { getPackages, deletePackage } from '../../services/api'
 
@@ -53,6 +53,7 @@ const ManagePackages = () => {
                     <SidebarLink to="/admin/packages" icon={<Package size={20} />} label="Manage Packages" active />
                     <SidebarLink to="/admin/testimonials" icon={<MessageSquare size={20} />} label="Manage Testimonials" />
                     <SidebarLink to="/admin/inquiries" icon={<Users size={20} />} label="User Inquiries" />
+                    <SidebarLink to="/admin/settings" icon={<Settings size={20} />} label="Site Settings" />
                 </nav>
             </aside>
 

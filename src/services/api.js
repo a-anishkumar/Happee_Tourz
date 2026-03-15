@@ -25,9 +25,14 @@ api.interceptors.request.use((config) => {
  * @returns {{ success: boolean, token: string, admin: object }}
  */
 export const adminLogin = async (email, password) => {
-    const { data } = await api.post('/auth/login', { email, password })
-    if (data.token) localStorage.setItem('adminToken', data.token)
-    return data
+    const response = await api.post('/auth/login', { email, password })
+    if (response.data.token) localStorage.setItem('adminToken', response.data.token)
+    return response.data
+}
+
+export const changePassword = async (passwords) => {
+    const response = await api.post('/auth/change-password', passwords)
+    return response.data
 }
 
 /**

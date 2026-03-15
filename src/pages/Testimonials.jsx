@@ -227,7 +227,7 @@ const Testimonials = () => {
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                         <StoryPhoto title="South America" image="https://images.unsplash.com/photo-1518391846015-55a9cc003b25?w=600&q=80" />
                         <StoryPhoto title="Japan" image="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=600&q=80" />
-                        <StoryPhoto title="Malaysia And Singapore" image="https://images.unsplash.com/photo-1483683804023-fca56f814d97?w=600&q=80" />
+                        <StoryPhoto title="Malaysia And Singapore" image="https://images.unsplash.com/photo-1596422846543-75c6fc197f07?w=1080&q=80" />
                         <StoryPhoto title="Great Britain" image="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=600&q=80" />
                         <StoryPhoto title="Switzerland" image="https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?w=600&q=80" />
                         <StoryPhoto title="Dubai, UAE" image="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&q=80" />

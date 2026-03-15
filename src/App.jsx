@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Home from './pages/Home'
@@ -16,6 +16,7 @@ import EditPackage from './dashboards/admin/EditPackage'
 import ManageTestimonials from './dashboards/admin/ManageTestimonials'
 import AddTestimonial from './dashboards/admin/AddTestimonial'
 import EditTestimonial from './dashboards/admin/EditTestimonial'
+import AdminSettings from './dashboards/admin/AdminSettings'
 import ManageInquiries from './dashboards/admin/ManageInquiries'
 import UserDashboard from './dashboards/user/UserDashboard'
 
@@ -37,6 +38,7 @@ const AppLayout = () => {
           <Route path="/contact" element={<Contact />} />
 
           {/* Admin Routes */}
+          <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/admin/packages" element={<ManagePackages />} />
@@ -46,6 +48,7 @@ const AppLayout = () => {
           <Route path="/admin/testimonials/add" element={<AddTestimonial />} />
           <Route path="/admin/testimonials/edit/:id" element={<EditTestimonial />} />
           <Route path="/admin/inquiries" element={<ManageInquiries />} />
+          <Route path="/admin/settings" element={<AdminSettings />} />
         </Routes>
       </main>
       {!isAdminRoute && <Footer />}

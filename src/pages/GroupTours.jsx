@@ -109,7 +109,7 @@ const GroupTours = () => {
                     <div className="relative">
                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-[#e30613]/20 rounded-full blur-3xl animate-pulse" />
                         <img
-                            src="https://images.unsplash.com/photo-1539635278303-d4002c07dee3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            src="https://www.dattatrimurtitours.com/admin/uploads/category/674aa0db3f9d1.jpg"
                             alt="Group Fun"
                             className="w-full h-[500px] object-cover rounded-[3rem] shadow-2xl relative z-10"
                         />

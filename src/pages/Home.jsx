@@ -87,7 +87,7 @@ const Home = () => {
                         <DestinationCard
                             title="Domestic India Tours"
                             count="All Seasons"
-                            image="https://images.unsplash.com/photo-1524492707947-526154394042?w=800&q=80"
+                            image="https://media.tacdn.com/media/attractions-splice-spp-674x446/0b/2e/01/9f.jpg"
                             href="/tour-packages"
                         />
                         <DestinationCard
